@@ -22,76 +22,72 @@
         </ul>
       </header>
           <div class="cart" id="cart">
-                <h2>Coș</h2>
-                <div id="cart-items"></div>
-                <p>Total: <span id="total-price">0</span> MDL</p>
-                <button onclick="toggleCart()">Închide</button>
-                <button onclick="toggleCart()" id="orderButton">Comandă</button>
-            </div>
-    
-
-
-        <div id="overlay" class="overlay"></div>
-
-
-        <div id="step1Window" class="floating-window">
-            <div class="window-content">
-                <h2>Întroduceți datele necesare</h2>
-                <form id="step1Form" action="https://api.web3forms.com/submit" method="POST">
-    <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
-    <input type="hidden" name="subject" value="Nouă comandă de la VETAL-OV STORE">
-    <input type="hidden" name="from_name" value="VETAL-OV STORE">
-    <input type="hidden" name="reply_to" value="vetal.ov.company@gmail.com">
-    
-    <div class="form-group">
-        <label for="name">Nume, prenume:</label>
-        <input type="text" id="name" name="name" required>
-    </div>
-    <div class="form-group">
-        <label for="phone">Număr de telefon:</label>
-        <input type="tel" id="phone" name="phone" required>
-    </div>
-    <div class="form-group">
-        <label for="address">Adresa</label>
-        <textarea id="address" name="address" rows="3" required></textarea>
-    </div>
-    <button type="submit">Continuă</button>
-</form>
-            </div>
+            <h2>Coș</h2>
+            <div id="cart-items"></div>
+            <p>Total: <span id="total-price">0</span> MDL</p>
+            <button onclick="toggleCart()">Închide</button>
+            <button onclick="toggleCart()" id="orderButton">Comandă</button>
         </div>
+    </header>
+    <div id="overlay" class="overlay"></div>
 
-        <div id="confirmOrderWindow" class="floating-window">
-            <div class="window-content">
-                <h2>Confirmarea comenzii:</h2>
-                <div id="cart-items-confirm"></div>
-                <p>Suma totală: <span id="total-price-confirm"></span> MDL</p>
-                <button id="confirmOrderButton">Confirmă comanda</button>
-                <button id="editOrderButton">Modifică comanda</button>
-            </div>
+
+            <div id="step1Window" class="floating-window">
+              <div class="window-content">
+                  <h2>Întroduceți datele necesare</h2>
+                  <form id="step1Form" action="https://api.web3forms.com/submit" method="POST">
+                    <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
+                    <input type="hidden" name="email" value="vetal.ov.company@gmail.com">
+                      <div class="form-group">
+                          <label for="name">Nume, prenume:</label>
+                          <input type="text" id="name" name="name" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="phone">Număr de telefon:</label>
+                          <input type="tel" id="phone" name="phone" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="address">Adresa</label>
+                          <textarea id="address" name="address" rows="3" required></textarea>
+                      </div>
+                      <button type="submit">Continuă</button>
+                  </form>
+              </div>
+          </div>
         </div>
-
-        <div id="step2Window" class="floating-window">
-            <div class="window-content">
-                <h2>Întroduceți datele necesare</h2>
-                <form id="step2Form" action="https://api.web3forms.com/submit" method="POST">
-                  <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
-                    <div class="form-group">
-                        <label for="cardNumber">Număr de card bancar:</label>
-                        <input type="text" id="cardNumber" name="cardNumber" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="expiry">Data expirării:</label>
-                        <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV:</label>
-                        <input type="text" id="cvv" name="cvv" required>
-                    </div>
-                    <button type="submit" >Achită</button>
-                </form>
-            </div>
+    </div>
+    <div id="confirmOrderWindow" class="floating-window">
+        <div class="window-content">
+            <h2>Confirmarea comenzii:</h2>
+            <div id="cart-items-confirm"></div>
+            <p>Suma totală: <span id="total-price-confirm"></span> MDL</p>
+            <button id="confirmOrderButton">Confirmă comanda</button>
+            <button id="editOrderButton">Modifică comanda</button>
         </div>
+    </div>
 
+    <div id="step2Window" class="floating-window">
+        <div class="window-content">
+            <h2>Întroduceți datele necesare</h2>
+            <form id="step2Form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
+                <input type="hidden" name="email" value="vetal.ov.company@gmail.com">
+                <div class="form-group">
+                    <label for="cardNumber">Număr de card bancar:</label>
+                    <input type="text" id="cardNumber" name="cardNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiry">Data expirării:</label>
+                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                </div>
+                <button type="submit" >Achită</button>
+            </form>
+        </div>
+    </div>
 <div class="intro">
     <h1>Vetal-OV Store</h1>
     <p class="p1">Magazin online „Totul pentru baie și confortul casei tale”</p>
