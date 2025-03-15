@@ -36,22 +36,26 @@
               <div class="window-content">
                   <h2>Întroduceți datele necesare</h2>
                   <form id="step1Form" action="https://api.web3forms.com/submit" method="POST">
-                    <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
-                    <input type="hidden" name="email" value="vetal.ov.company@gmail.com">
-                      <div class="form-group">
-                          <label for="name">Nume, prenume:</label>
-                          <input type="text" id="name" name="name" required>
-                      </div>
-                      <div class="form-group">
-                          <label for="phone">Număr de telefon:</label>
-                          <input type="tel" id="phone" name="phone" required>
-                      </div>
-                      <div class="form-group">
-                          <label for="address">Adresa</label>
-                          <textarea id="address" name="address" rows="3" required></textarea>
-                      </div>
-                      <button type="submit">Continuă</button>
-                  </form>
+    <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
+    <input type="hidden" name="subject" value="Nouă comandă de la VETAL-OV STORE">
+    <input type="hidden" name="from_name" value="VETAL-OV STORE">
+    <input type="hidden" name="reply_to" value="vetal.ov.company@gmail.com">
+    
+    <div class="form-group">
+        <label for="name">Nume, prenume:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="phone">Număr de telefon:</label>
+        <input type="tel" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+        <label for="address">Adresa</label>
+        <textarea id="address" name="address" rows="3" required></textarea>
+    </div>
+    <button type="submit">Continuă</button>
+</form>
+
               </div>
           </div>
         </div>
