@@ -545,6 +545,8 @@ table {
         font-size: 40px;
     }
 
+    .intro p {
+        font-size: 30px; }
 
     .table img {
         width: 100%;
