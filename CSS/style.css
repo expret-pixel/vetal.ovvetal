@@ -739,6 +739,8 @@ table {
             padding: 20px;
         }
 
+        .intro p {
+            font-size: 10px;}
         .form-group input,
         .form-group textarea {
             width: 100%;
