@@ -4,288 +4,160 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VETAL-OV STORE</title>
-    <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+    <link rel="stylesheet" href="CSS/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="icon" type="image/x-icon" href="Images/main/logo.jpg">
 </head>
-    <style>* {
-    margin: 0;
-    scroll-behavior: smooth;
-    font-family: 'Roboto', sans-serif;
-}
-
-.menu-main li:after {
-    content: "|";
-    color: black;
-    display: inline-block;
-    vertical-align: top;
-}
-
-.menu-main li:last-child:after { content: none; }
-
-.menu-main a {
-    position: relative;
-    padding-bottom: 10px;
-    transition: color .3s;
-}
-
-.menu-main a:before,
-.menu-main a:after {
-    content: "";
-    position: absolute;
-    height: 4px;
-    top: auto;
-    right: 50%;
-    bottom: -5px;
-    left: 50%;
-    background: #feb386;
-    transition: .3s;
-}
-
-.menu-main a:hover:before, .menu-main .current:before { left: 0; }
-.menu-main a:hover:after, .menu-main .current:after { right: 0; }
-
-.cart {
-    transition: right 0.3s;
-}
-
-.cart.active { right: 0; }
-
-.floating-window {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.floating-window.active {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-th img {
-    transition: .5s;
-}
-
-th img:hover {
-    transform: scale(1.1);
-}
-
-@media (max-width: 768px) {
-    .menu-main {
-        display: none;
-        position: absolute;
-        right: 0;
-        width: 100%;
-        background-color: #f7f7f7;
-        text-align: center;
-    }
-    
-    .menu-main.active {
-        display: flex;
-        flex-direction: column;
-        margin-top: 60px;
-    }
-    
-    .menu-main li {
-        display: block;
-        margin: 10px 0;
-    }
-    
-    .menu-main li:after {
-        display: none;
-    }
-    
-    .table img {
-        width: 100%;
-        max-width: 300px;
-    }
-    
-    .intro h1 {
-        font-size: 2.5rem;
-    }
-    
-    .intro .p1, .intro .p2 {
-        font-size: 1rem;
-        padding: 20px;
-    }
-}</style>
-<body class="bg-gray-50">
-    <!-- Header -->
-    <header class="fixed w-full bg-white shadow-sm z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h3 class="text-xl font-bold">VETAL-OV STORE</h3>
-            <div class="flex items-center space-x-4">
-                <div class="hamburger md:hidden cursor-pointer" onclick="toggleMenu()">
-                    <i class="fas fa-bars text-xl"></i>
-                </div>
-                <ul class="menu-main hidden md:flex items-center space-x-4">
-                    <li><a href="#" class="text-black hover:text-orange-400">Acasă</a></li>
-                    <li><a href="#products" class="text-black hover:text-orange-400">Magazin</a></li>
-                    <li><a href="#about" class="text-black hover:text-orange-400">Despre noi</a></li>
-                    <li><a href="#contact" class="text-black hover:text-orange-400">Contacte</a></li>
-                    <li>
-                        <a id="cos" onclick="toggleCart()" class="text-black hover:text-orange-400 cursor-pointer">
-                            <i class="fas fa-shopping-cart"></i> (<span id="cart-count">0</span>)
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<body>
+    <header>
+      <header id="menu0">
+        <h3 class="logo">VETAL-OV STORE</h3>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+        <ul class="menu-main">
+            <li><a href="index.html">Acasă</a></li>
+            <li><a href="#products">Magazin</a></li>
+            <li><a href="Pages/info.html">Despre noi</a></li>
+            <li><a href="#contact">Contacte</a></li>
+            <li><a id="cos" onclick="toggleCart()"> <img src="Images/main/icons8-cart-96.png" alt="" width="26px" height="20px"> (<span id="cart-count">0</span>)</a></li>
+        </ul>
+      </header>
+          <div class="cart" id="cart">
+            <h2>Coș</h2>
+            <div id="cart-items"></div>
+            <p>Total: <span id="total-price">0</span> MDL</p>
+            <button onclick="toggleCart()">Închide</button>
+            <button onclick="toggleCart()" id="orderButton">Comandă</button>
         </div>
     </header>
+    <div id="overlay" class="overlay"></div>
 
-    <!-- Shopping Cart -->
-    <div class="cart fixed top-0 right-[-300px] w-72 h-full bg-white shadow-lg z-40 p-4 overflow-y-auto">
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-bold">Coș</h2>
-            <button onclick="toggleCart()" class="text-gray-500 hover:text-gray-700">
-                <i class="fas fa-times"></i>
-            </button>
+
+            <div id="step1Window" class="floating-window">
+              <div class="window-content">
+                  <h2>Întroduceți datele necesare</h2>
+                  <form id="step1Form" action="https://api.web3forms.com/submit" method="POST">
+    <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
+    <input type="hidden" name="subject" value="Nouă comandă de la VETAL-OV STORE">
+    <input type="hidden" name="from_name" value="VETAL-OV STORE">
+    <input type="hidden" name="reply_to" value="vetal.ov.company@gmail.com">
+    
+    <div class="form-group">
+        <label for="name">Nume, prenume:</label>
+        <input type="text" id="name" name="name" required>
+    </div>
+    <div class="form-group">
+        <label for="phone">Număr de telefon:</label>
+        <input type="tel" id="phone" name="phone" required>
+    </div>
+    <div class="form-group">
+        <label for="address">Adresa</label>
+        <textarea id="address" name="address" rows="3" required></textarea>
+    </div>
+    <button type="submit">Continuă</button>
+</form>
+
+              </div>
+          </div>
         </div>
-        <div id="cart-items" class="mb-4 border-b pb-4"></div>
-        <div class="mb-4">
-            <p class="font-semibold">Total: <span id="total-price">0</span> MDL</p>
-        </div>
-        <div class="flex flex-col space-y-2">
-            <button onclick="toggleCart()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded transition">Închide</button>
-            <button onclick="showOrderForm()" id="orderButton" class="bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded transition">Comandă</button>
+    </div>
+    <div id="confirmOrderWindow" class="floating-window">
+        <div class="window-content">
+            <h2>Confirmarea comenzii:</h2>
+            <div id="cart-items-confirm"></div>
+            <p>Suma totală: <span id="total-price-confirm"></span> MDL</p>
+            <button id="confirmOrderButton">Confirmă comanda</button>
+            <button id="editOrderButton">Modifică comanda</button>
         </div>
     </div>
 
-    <!-- Overlay -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden"></div>
-
-    <!-- Order Form -->
-    <div id="step1Window" class="floating-window fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-md z-50 hidden opacity-0">
+    <div id="step2Window" class="floating-window">
         <div class="window-content">
-            <h2 class="text-xl font-bold mb-4 text-center">Întroduceți datele necesare</h2>
-            <form id="step1Form">
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium mb-1">Nume, prenume:</label>
-                    <input type="text" id="name" name="name" required class="w-full px-3 py-2 border rounded-md">
+            <h2>Întroduceți datele necesare</h2>
+            <form id="step2Form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="ae1b6354-3f57-4f98-a702-fd9f501b78f9">
+                <input type="hidden" name="email" value="vetal.ov.company@gmail.com">
+                <div class="form-group">
+                    <label for="cardNumber">Număr de card bancar:</label>
+                    <input type="text" id="cardNumber" name="cardNumber" required>
                 </div>
-                <div class="mb-4">
-                    <label for="phone" class="block text-sm font-medium mb-1">Număr de telefon:</label>
-                    <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border rounded-md">
+                <div class="form-group">
+                    <label for="expiry">Data expirării:</label>
+                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required>
                 </div>
-                <div class="mb-4">
-                    <label for="address" class="block text-sm font-medium mb-1">Adresa</label>
-                    <textarea id="address" name="address" rows="3" required class="w-full px-3 py-2 border rounded-md"></textarea>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
                 </div>
-                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md transition">Continuă</button>
+                <button type="submit" >Achită</button>
             </form>
         </div>
     </div>
-
-    <!-- Order Confirmation -->
-    <div id="confirmOrderWindow" class="floating-window fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-md z-50 hidden opacity-0">
-        <div class="window-content">
-            <h2 class="text-xl font-bold mb-4 text-center">Confirmarea comenzii:</h2>
-            <div id="cart-items-confirm" class="max-h-60 overflow-y-auto mb-4 border-b pb-4"></div>
-            <p class="font-semibold mb-4">Suma totală: <span id="total-price-confirm"></span> MDL</p>
-            <div class="flex space-x-2">
-                <button id="confirmOrderButton" class="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md transition">Confirmă comanda</button>
-                <button id="editOrderButton" class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 px-4 rounded-md transition">Modifică comanda</button>
-            </div>
-        </div>
+<div class="intro">
+    <h1>Vetal-OV Store</h1>
+    <p class="p1">Magazin online „Totul pentru baie și confortul casei tale”</p>
+    <p class="p2" id="p2">Bine ați venit în magazinul nostru online, unde veți găsi tot ce aveți nevoie pentru a crea o baie confortabilă și funcțională, precum și pentru a asigura un climat plăcut în casa dumneavoastră!</p>
+</div>
+<p id="products">.</p>
+  <p id="products">.</p>
+  <p id="products">.</p>
+    <div class="products">
+        <h2>Oferim o gamă largă de produse, care include:</h2>
+        <table class="table">
+            <tr>
+              <th>
+                <a href="Pages/vetal1.html"><img src="Images/main/01.png" alt="">
+                <h4>Totul pentru baie</h4></a>
+            </th>
+            <th>
+                <a href="Pages/vetal2.html"><img src="Images/main/02.png" alt="">
+                <h4>Echipamente de încălzire și termice</h4></a>
+            </th>
+            </tr>
+            <tr>
+              <th>
+                <a href="Pages/vetal3.html"><img src="Images/main/03.png" alt="">
+                <h4>Aparate de climatizare</h4></a>
+            </th>
+            <th>
+                <a href="Pages/vetal4.html"><img src="Images/main/04.png" alt="">
+                <h4>Sisteme de filtrare a apei</h4></a>
+            </th>
+            </tr>
+            <tr>
+              <th>
+                <a href="Pages/vetal5.html"><img src="Images/main/05.png" alt="">
+                <h4>Pompe de căldură, panouri solare</h4></a>
+            </th>
+            <th>
+                <a href="Pages/vetal6.html"><img src="Images/main/06.png" alt="">
+                <h4>Baterii de bucătărie</h4></a>
+            </th>
+            </tr>
+          </table>
     </div>
+    <hr>
+    <div class="info">
+    <p>Ne străduim să oferim clienților noștri doar produse de calitate la prețuri accesibile. Comandați online cu livrare la domiciliu — este convenabil și rapid! Descoperiți lumea confortului cu magazinul nostru online!</p>
+</div>
 
-    <!-- Payment Form -->
-    <div id="step2Window" class="floating-window fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg shadow-xl p-6 w-11/12 max-w-md z-50 hidden opacity-0">
-        <div class="window-content">
-            <h2 class="text-xl font-bold mb-4 text-center">Întroduceți datele necesare</h2>
-            <form id="step2Form">
-                <div class="mb-4">
-                    <label for="cardNumber" class="block text-sm font-medium mb-1">Număr de card bancar:</label>
-                    <input type="text" id="cardNumber" name="cardNumber" required class="w-full px-3 py-2 border rounded-md">
-                </div>
-                <div class="mb-4">
-                    <label for="expiry" class="block text-sm font-medium mb-1">Data expirării:</label>
-                    <input type="text" id="expiry" name="expiry" placeholder="MM/YY" required class="w-full px-3 py-2 border rounded-md">
-                </div>
-                <div class="mb-4">
-                    <label for="cvv" class="block text-sm font-medium mb-1">CVV:</label>
-                    <input type="text" id="cvv" name="cvv" required class="w-full px-3 py-2 border rounded-md">
-                </div>
-                <button type="submit" class="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 rounded-md transition">Achită</button>
-            </form>
-        </div>
-    </div>
+<div class="podval" id="contact">
+  <p>+373 68626470 <br>
+    vetal.ov.company@gmail.com
+     </p>
 
-    <!-- Hero Section -->
-    <section class="intro pt-32 pb-16 bg-gray-100 text-center">
-        <div class="container mx-auto px-4">
-            <h1 class="text-5xl font-bold mb-6">Vetal-OV Store</h1>
-            <p class="p1 text-xl font-semibold mb-6">Magazin online „Totul pentru baie și confortul casei tale”</p>
-            <p class="p2 text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                Bine ați venit în magazinul nostru online, unde veți găsi tot ce aveți nevoie pentru a crea o baie confortabilă și funcțională, precum și pentru a asigura un climat plăcut în casa dumneavoastră!
-            </p>
-        </div>
-    </section>
+         <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+            <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+          </svg>
 
-    <!-- Products Section -->
-    <section id="products" class="products py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl text-center text-gray-700 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Oferim o gamă largă de produse, care include:
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="text-center">
-                    <a href="#" class="block relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition">
-                        <img src="https://via.placeholder.com/600x400?text=Totul+pentru+baie" alt="Totul pentru baie" class="w-full h-64 object-cover">
-                        <h4 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold bg-black bg-opacity-40">Totul pentru baie</h4>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <a href="#" class="block relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition">
-                        <img src="https://via.placeholder.com/600x400?text=Echipamente+de+incalzire" alt="Echipamente de încălzire" class="w-full h-64 object-cover">
-                        <h4 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold bg-black bg-opacity-40">Echipamente de încălzire</h4>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <a href="#" class="block relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition">
-                        <img src="https://via.placeholder.com/600x400?text=Aparate+de+climatizare" alt="Aparate de climatizare" class="w-full h-64 object-cover">
-                        <h4 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold bg-black bg-opacity-40">Aparate de climatizare</h4>
-                    </a>
-                </div>
-                <div class="text-center">
-                    <a href="#" class="block relative overflow-hidden rounded-lg shadow-md hover:shadow-lg transition">
-                        <img src="https://via.placeholder.com/600x400?text=Sisteme+de+filtrare" alt="Sisteme de filtrare" class="w-full h-64 object-cover">
-                        <h4 class="absolute inset-0 flex items-center justify-center text-white text-2xl font-bold bg-black bg-opacity-40">Sisteme de filtrare</h4>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+          <p id="p4">Acest website a fost realizat în cadrul
+            competiției „Tekwill Junior Ambassadors” organizată de proiectul „Tekwill în Fiecare
+            Școală” și nu reflectă neapărat opinia proiectului.</p>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 bg-gray-100">
-        <div class="container mx-auto px-4">
-            <p class="text-lg text-gray-700 text-center max-w-3xl mx-auto leading-relaxed">
-                Ne străduim să oferim clienților noștri doar produse de calitate la prețuri accesibile. Comandați online cu livrare la domiciliu — este convenabil și rapid! Descoperiți lumea confortului cu magazinul nostru online!
-            </p>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <footer id="contact" class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4 text-center">
-            <div class="mb-8">
-                <p class="text-xl mb-2">+373 68626470</p>
-                <p class="text-xl">vetal.ov.company@gmail.com</p>
-            </div>
-            <div class="flex justify-center space-x-6 mb-8">
-                <a href="#" class="text-orange-400 hover:text-white text-3xl transition">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="#" class="text-orange-400 hover:text-white text-3xl transition">
-                    <i class="fab fa-facebook"></i>
-                </a>
-            </div>
-            <p class="text-sm text-gray-400 max-w-2xl mx-auto">
-                Acest website a fost realizat în cadrul competiției „Tekwill Junior Ambassadors” organizată de proiectul „Tekwill în Fiecare Școală” și nu reflectă neapărat opinia proiectului.
-            </p>
-        </div>
-    </footer>
-
-    <script src="JS/v1"></script>
+          <script src="JS/v1.js"></script>
+</div>
 </body>
 </html>
