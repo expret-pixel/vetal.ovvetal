@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VETAL-OV STORE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             scroll-behavior: smooth;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         
         .menu-main li:after {
@@ -68,28 +68,46 @@
             transform: scale(1.1);
         }
         
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        .mobile-menu.open {
+            transform: translateX(0);
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: #000;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
         @media (max-width: 768px) {
             .menu-main {
-                display: none;
-                position: absolute;
-                right: 0;
-                width: 100%;
-                background-color: #f7f7f7;
-                text-align: center;
-            }
-            
-            .menu-main.active {
-                display: flex;
-                flex-direction: column;
-                margin-top: 60px;
-            }
-            
-            .menu-main li {
-                display: block;
-                margin: 10px 0;
-            }
-            
-            .menu-main li:after {
                 display: none;
             }
             
@@ -98,11 +116,11 @@
                 max-width: 300px;
             }
             
-            .intro h1 {
+            .hero h1 {
                 font-size: 2.5rem;
             }
             
-            .intro .p1, .intro .p2 {
+            .hero .p1, .hero .p2 {
                 font-size: 1rem;
                 padding: 20px;
             }
@@ -113,11 +131,11 @@
     <!-- Header -->
     <header class="fixed w-full bg-white shadow-sm z-50">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <h3 class="text-xl font-bold">VETAL-OV STORE</h3>
+            <a href="#" class="text-xl font-bold flex items-center">
+                <span class="text-orange-500">VETAL</span>-<span class="text-blue-600">OV</span>
+                <span class="ml-2 text-gray-800">STORE</span>
+            </a>
             <div class="flex items-center space-x-4">
-                <div class="hamburger md:hidden cursor-pointer" onclick="toggleMenu()">
-                    <i class="fas fa-bars text-xl"></i>
-                </div>
                 <ul class="menu-main hidden md:flex items-center space-x-4">
                     <li><a href="#" class="text-black hover:text-orange-400">Acasă</a></li>
                     <li><a href="#products" class="text-black hover:text-orange-400">Magazin</a></li>
@@ -129,9 +147,49 @@
                         </a>
                     </li>
                 </ul>
+                <div class="hamburger md:hidden cursor-pointer" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu fixed top-0 right-0 w-64 h-full bg-white shadow-lg z-40 p-4 overflow-y-auto">
+        <div class="flex justify-between items-center mb-8">
+            <a href="#" class="text-xl font-bold flex items-center">
+                <span class="text-orange-500">VETAL</span>-<span class="text-blue-600">OV</span>
+                <span class="ml-2 text-gray-800">STORE</span>
+            </a>
+            <button onclick="toggleMobileMenu()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col space-y-4">
+            <a href="#" class="text-black hover:text-orange-400 py-2 border-b border-gray-100">Acasă</a>
+            <a href="#products" class="text-black hover:text-orange-400 py-2 border-b border-gray-100">Magazin</a>
+            <a href="#about" class="text-black hover:text-orange-400 py-2 border-b border-gray-100">Despre noi</a>
+            <a href="#contact" class="text-black hover:text-orange-400 py-2 border-b border-gray-100">Contacte</a>
+            <a onclick="toggleCart()" class="text-black hover:text-orange-400 py-2 border-b border-gray-100 cursor-pointer">
+                <i class="fas fa-shopping-cart"></i> Coș (<span id="mobile-cart-count">0</span>)
+            </a>
+        </nav>
+        <div class="mt-8 pt-4 border-t border-gray-200">
+            <div class="flex space-x-4 justify-center">
+                <a href="#" class="text-orange-400 hover:text-orange-600 text-xl">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="#" class="text-orange-400 hover:text-orange-600 text-xl">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="text-orange-400 hover:text-orange-600 text-xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- Shopping Cart -->
     <div class="cart fixed top-0 right-[-300px] w-72 h-full bg-white shadow-lg z-40 p-4 overflow-y-auto">
@@ -212,13 +270,21 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="intro pt-32 pb-16 bg-gray-100 text-center">
-        <div class="container mx-auto px-4">
-            <h1 class="text-5xl font-bold mb-6">Vetal-OV Store</h1>
-            <p class="p1 text-xl font-semibold mb-6">Magazin online „Totul pentru baie și confortul casei tale”</p>
-            <p class="p2 text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+    <section class="hero pt-32 pb-16 text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl font-bold mb-6 animate-fade-in">Vetal-OV Store</h1>
+            <p class="p1 text-xl font-semibold mb-6 animate-fade-in">Magazin online „Totul pentru baie și confortul casei tale”</p>
+            <p class="p2 text-lg max-w-3xl mx-auto leading-relaxed animate-fade-in">
                 Bine ați venit în magazinul nostru online, unde veți găsi tot ce aveți nevoie pentru a crea o baie confortabilă și funcțională, precum și pentru a asigura un climat plăcut în casa dumneavoastră!
             </p>
+            <div class="mt-8 flex justify-center space-x-4 animate-fade-in-up">
+                <a href="#products" class="bg-orange-500 hover:bg-orange-600 text-white py-3 px-6 rounded-lg font-medium transition duration-300 transform hover:scale-105">
+                    Vezi produsele
+                </a>
+                <a href="#contact" class="bg-white hover:bg-gray-100 text-orange-500 py-3 px-6 rounded-lg font-medium transition duration-300 transform hover:scale-105">
+                    Contactează-ne
+                </a>
+            </div>
         </div>
     </section>
 
@@ -302,33 +368,42 @@
         const editOrderButton = document.getElementById('editOrderButton');
         const step2Form = document.getElementById('step2Form');
         const orderButton = document.getElementById('orderButton');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const hamburger = document.querySelector('.hamburger');
         
         // Update cart on page load
         document.addEventListener('DOMContentLoaded', function() {
             updateCart();
             
-            // Add event listeners for mobile menu
-            document.querySelector('.hamburger').addEventListener('click', toggleMenu);
-            
             // Close mobile menu when clicking on a link
-            document.querySelectorAll('.menu-main a').forEach(link => {
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
                 link.addEventListener('click', () => {
-                    if (window.innerWidth < 768) {
-                        toggleMenu();
-                    }
+                    toggleMobileMenu();
                 });
             });
         });
+        
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('open');
+            hamburger.classList.toggle('active');
+            overlay.style.display = mobileMenu.classList.contains('open') ? 'block' : 'none';
+            
+            if (mobileMenu.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
         
         // Toggle cart visibility
         function toggleCart() {
             cartElement.classList.toggle('active');
             overlay.style.display = cartElement.classList.contains('active') ? 'block' : 'none';
-        }
-        
-        // Toggle mobile menu
-        function toggleMenu() {
-            document.querySelector('.menu-main').classList.toggle('active');
+            
+            if (mobileMenu.classList.contains('open')) {
+                toggleMobileMenu();
+            }
         }
         
         // Show order form
@@ -350,6 +425,7 @@
         function updateCart() {
             const cartItems = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
             const totalPrice = document.getElementById('total-price');
             
             cartItems.innerHTML = '';
@@ -374,7 +450,9 @@
                 total += item.price * item.quantity;
             });
             
-            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = count;
+            mobileCartCount.textContent = count;
             totalPrice.textContent = total.toFixed(2);
             
             // Save to localStorage
@@ -516,7 +594,12 @@
             confirmOrderWindow.classList.remove('active');
             step2Window.classList.remove('active');
             cartElement.classList.remove('active');
-            overlay.style.display = 'none';
+            
+            if (mobileMenu.classList.contains('open')) {
+                toggleMobileMenu();
+            } else {
+                overlay.style.display = 'none';
+            }
             
             setTimeout(() => {
                 step1Window.style.display = 'none';
